@@ -6,8 +6,17 @@ public class InputManager : MonoBehaviour
     public UnityEvent<Vector2> OnMove = new();
     public UnityEvent OnJump = new();
     public UnityEvent OnDash = new();
+
+    public UnityEvent OnSettingsMenu = new();
     void Update()
     {
+
+           if (Input.GetKeyDown(KeyCode.P))
+        {
+            OnSettingsMenu?.Invoke();
+        }
+
+        if (GameManager.Instance.IsSettingsMenuActive) return;
         Vector2 input = Vector2.zero;
         if (Input.GetKey(KeyCode.W))
         {
@@ -34,6 +43,9 @@ public class InputManager : MonoBehaviour
         {
             OnDash?.Invoke();
         }
+       
+
+
         OnMove?.Invoke(input.normalized);
     }
 }
